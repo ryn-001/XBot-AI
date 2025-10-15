@@ -1,0 +1,82 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.chat-section{
+    background-color: #d7c7f446;
+    height: 100vh;
+    position: relative;
+}
+
+.chat-heading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.825rem;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bot-ai-heading{
+    color: #9785BA;
+    position: absolute;   
+    left: 1rem;
+    top: 0.5rem;
+}
+
+.chat-pfp{
+    width: 7rem;
+    height: 7rem;
+    border-radius: 100%;
+}
+
+.chat-pfp img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+.input-section{
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 2rem;
+}
+
+.text-input{
+    padding: 0.5rem;
+    width: 80%;
+    outline: none;
+}
+
+.text-input:focus{
+    box-shadow: none;
+    border: 2px solid #9785BA;
+}
+
+.send-button{
+    background-color: #baa4e5;
+    padding: 0.5rem;
+    width: 8%;
+    font-weight: bold;
+    outline: none;
+    border: none;
+}
+
+
+.save-button{
+    width: 8%;
+    background-color: #baa4e5;
+    padding: 0.5rem;
+    font-weight: bold;
+    outline: none;
+    border: none;
+}
