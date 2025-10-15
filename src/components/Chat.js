@@ -4,6 +4,7 @@ import pfp from "../assets/images/chat-pfp.png"
 
 export default function Chat() {
 
+
     return (
         <div className="chat-section">
             <div className="bot-ai-heading">
@@ -19,10 +20,25 @@ export default function Chat() {
             </div>
 
             <div className="questions-section">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button className="question">
+                    <h3>Hi, what is the weather</h3>
+                    <p>Get immediate AI generated response</p>
+                </button>
+
+                <button className="question">
+                    <h3>Hi, what is my location</h3>
+                    <p>Get immediate AI generated response</p>
+                </button>
+
+                <button className="question">
+                    <h3>Hi, what is the temreature</h3>
+                    <p>Get immediate AI generated response</p>
+                </button>
+
+                <button className="question">
+                    <h3>Hi, how are you</h3>
+                    <p>Get immediate AI generated response</p>
+                </button>
             </div>
 
             <div className="input-section">

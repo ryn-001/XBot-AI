@@ -10,13 +10,13 @@ export default function Sidebar({ pastConversations, setPastconversations }) {
             <div className="add-new-chat">
                 <div className="header">
                     <div className="profile">
-                        <img src={profileImage} alt="profile-image" />
+                        <img src={profileImage} alt="profile-image" style={{cursor:"pointer"}}/>
                     </div>
 
-                    <span>New Chat</span>
+                    <span style={{fontWeight: "bold"}}>New Chat</span>
 
                     <div className="add-chat-icon">
-                        <img src={addNewChat} alt="add-new-chat-img" />
+                        <img src={addNewChat} alt="add-new-chat-img" style={{cursor:"pointer"}}/>
                     </div>
                 </div>
 

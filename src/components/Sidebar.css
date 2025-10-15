@@ -1,18 +1,18 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-.sidebar{
+.sidebar {
     height: 100vh;
 }
 
-.button-wrapper{
+.button-wrapper {
     padding: 10px;
 }
 
-.header{
+.header {
     width: 100%;
     display: flex;
     padding: 0.5rem;
@@ -21,17 +21,23 @@
     background-color: #D7C7F4;
 }
 
-.past-conversation-button{
+.past-conversation-button {
     border: none;
     outline: none;
     width: 90%;
-    
+    box-shadow: 2px 2px 2px #9785BA;
     background-color: #D7C7F4;
     padding: 1rem;
     border-radius: 1rem;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.button-wrapper{
+.past-conversation-button:hover{
+    background-color: #c7b8e2;
+}
+
+.button-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
