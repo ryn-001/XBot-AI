@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import profileImage from "../assets/images/profile-image.png";
 import addNewChat from "../assets/images/add-new-chat-img.png";
 
-export default function Sidebar({ pastConversations, setPastconversations }) {
+export default function Sidebar({ pastConversations, handleLoadChat, handleNewChat }) {
 
     return (
         <div className="sidebar">
