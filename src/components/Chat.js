@@ -25,6 +25,8 @@ export default function Chat() {
     const handleSendMessage = (message) => {
         if (message.trim() === "") return;
 
+        setShowWelcome(false);
+
         const userMsg = {
             sender: "user",
             text: message,
@@ -35,13 +37,13 @@ export default function Chat() {
         setCurrentChat(updatedChat);
         setCurrentMessage("");
 
-        const match = botData.find((item) => item.question.question.toLowerCase() === message.toLowerCase());
+        const match = botData.find((item) => item.question.toLowerCase() === message.toLowerCase());
         const botReply = match ? match.response : "As an AI Language Model, I don't have the details.";
 
         const botMsg = {
             sender: "bot",
             text: botReply,
-            time: new DataTransfer().toLocaleTimeString(),
+            time: new Date().toLocaleTimeString(),
             feedback: null,
         }
 
@@ -75,23 +77,23 @@ export default function Chat() {
                     </div>
                 </div>
 
-                <div className="questions-section">
+                <div className="questions-section" onClick={() => handleSendMessage("Hi, what is the weather")}>
                     <button className="question">
                         <h3>Hi, what is the weather</h3>
                         <p>Get immediate AI generated response</p>
                     </button>
 
-                    <button className="question">
+                    <button className="question" onClick={() => handleSendMessage("Hi, what is my location")}>
                         <h3>Hi, what is my location</h3>
                         <p>Get immediate AI generated response</p>
                     </button>
 
-                    <button className="question">
+                    <button className="question" onClick={() => handleSendMessage("Hi, what is the temreature")}>
                         <h3>Hi, what is the temreature</h3>
                         <p>Get immediate AI generated response</p>
                     </button>
 
-                    <button className="question">
+                    <button className="question" onClick={() => handleSendMessage("Hi, how are you")}>
                         <h3>Hi, how are you</h3>
                         <p>Get immediate AI generated response</p>
                     </button>
@@ -102,7 +104,7 @@ export default function Chat() {
                     currentChat.map((chat, idx) => (
                         <div key={idx} className="chat-box">
                             <div className="chat-msg">{chat.text}</div>
-                            <div className="chat-time">{chat.timestamp}</div>
+                            <div className="chat-time">{chat.time}</div>
 
                             {chat.sender === "bot" && (
                                 <>
@@ -142,7 +144,7 @@ export default function Chat() {
                     onChange={(e) => setCurrentMessage(e.target.value)}
                 />
 
-                <button className="send-button" onClick={handleSendMessage}>Send</button>
+                <button className="send-button" onClick={() => handleSendMessage(message)}>Send</button>
 
                 <button className="save-button">Save</button>
 
