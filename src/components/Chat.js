@@ -78,8 +78,8 @@ export default function Chat() {
                     </div>
                 </div>
 
-                <div className="questions-section" onClick={() => handleSendMessage("Hi, what is the weather")}>
-                    <button className="question">
+                <div className="questions-section">
+                    <button className="question" onClick={() => handleSendMessage("Hi, what is the weather")}>
                         <h3>Hi, what is the weather</h3>
                         <p>Get immediate AI generated response</p>
                     </button>
@@ -100,13 +100,13 @@ export default function Chat() {
                     </button>
                 </div>
 
-            </>) : (<div className="chat-messages">
+            </>) : (<div className="chat-container">
                 {currentChat.length > 0 ? (
                     currentChat.map((chat, idx) => (
                         <div className="chat-messages">
                             <div key={idx} className="chat-box">
                                 <div className="chat-pfp">
-                                    <img src={chat.sender === "user" ? user : pfp} alt={chat.sender === "user" ? "user" : "bot"}></img>
+                                    {chat.sender === "user" ? (<img className="chat-user-pfp" src={user} alt="user"></img>) : (<img className="chat-bot-pfp" src={pfp} alt="bot"></img>)}
                                 </div>
 
                                 <div className="chat-wrapper">
@@ -115,27 +115,27 @@ export default function Chat() {
 
                                     {chat.sender === "bot" && (
                                         <>
-                                            <label>
-                                                <input
-                                                    type="radio"
-                                                    name={`feedback-${idx}`}
-                                                    value="like"
-                                                    checked={chat.feedback === "like"}
-                                                    onChange={() => handleFeedback(idx, "like")}
-                                                />{" "}
-                                                👍
-                                            </label>
+                                            <input
+                                                id="like"
+                                                type="radio"
+                                                name={`feedback-${idx}`}
+                                                value="like"
+                                                checked={chat.feedback === "like"}
+                                                onChange={() => handleFeedback(idx, "like")}
+                                            />{" "}
+                                            <label for="like" id="like-button">👍</label>
                                             {"  "}
-                                            <label>
-                                                <input
-                                                    type="radio"
-                                                    name={`feedback-${idx}`}
-                                                    value="dislike"
-                                                    checked={chat.feedback === "dislike"}
-                                                    onChange={() => handleFeedback(idx, "dislike")}
-                                                />{" "}
+                                            <label for="dislike" id="dislike-button">
                                                 👎
                                             </label>
+                                            <input
+                                                id="dislike"
+                                                type="radio"
+                                                name={`feedback-${idx}`}
+                                                value="dislike"
+                                                checked={chat.feedback === "dislike"}
+                                                onChange={() => handleFeedback(idx, "dislike")}
+                                            />{" "}
                                         </>
                                     )}
                                 </div>
