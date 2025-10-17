@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./Chat.css"
 import pfp from "../assets/images/chat-pfp.png"
 import botData from "../sampleData.js";
+import user from "../assets/images/user.png";
 
 export default function Chat() {
     const [message, setCurrentMessage] = useState("");
@@ -102,35 +103,43 @@ export default function Chat() {
             </>) : (<div className="chat-messages">
                 {currentChat.length > 0 ? (
                     currentChat.map((chat, idx) => (
-                        <div key={idx} className="chat-box">
-                            <div className="chat-msg">{chat.text}</div>
-                            <div className="chat-time">{chat.time}</div>
+                        <div className="chat-messages">
+                            <div key={idx} className="chat-box">
+                                <div className="chat-pfp">
+                                    <img src={chat.sender === "user" ? user : pfp} alt={chat.sender === "user" ? "user" : "bot"}></img>
+                                </div>
 
-                            {chat.sender === "bot" && (
-                                <>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name={`feedback-${idx}`}
-                                            value="like"
-                                            checked={chat.feedback === "like"}
-                                            onChange={() => handleFeedback(idx, "like")}
-                                        />{" "}
-                                        👍
-                                    </label>
-                                    {"  "}
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name={`feedback-${idx}`}
-                                            value="dislike"
-                                            checked={chat.feedback === "dislike"}
-                                            onChange={() => handleFeedback(idx, "dislike")}
-                                        />{" "}
-                                        👎
-                                    </label>
-                                </>
-                            )}
+                                <div className="chat-wrapper">
+                                    <div className="chat-msg">{chat.text}</div>
+                                    <div className="chat-time">{chat.time}</div>
+
+                                    {chat.sender === "bot" && (
+                                        <>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name={`feedback-${idx}`}
+                                                    value="like"
+                                                    checked={chat.feedback === "like"}
+                                                    onChange={() => handleFeedback(idx, "like")}
+                                                />{" "}
+                                                👍
+                                            </label>
+                                            {"  "}
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name={`feedback-${idx}`}
+                                                    value="dislike"
+                                                    checked={chat.feedback === "dislike"}
+                                                    onChange={() => handleFeedback(idx, "dislike")}
+                                                />{" "}
+                                                👎
+                                            </label>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     ))
                 ) : (<></>)}
