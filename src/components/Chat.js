@@ -89,8 +89,8 @@ export default function Chat() {
                         <p>Get immediate AI generated response</p>
                     </button>
 
-                    <button className="question" onClick={() => handleSendMessage("Hi, what is the temreature")}>
-                        <h3>Hi, what is the temreature</h3>
+                    <button className="question question-3" onClick={() => handleSendMessage("Hi, what is the temreature")}>
+                        <h3>Hi, what is the tempreature</h3>
                         <p>Get immediate AI generated response</p>
                     </button>
 
