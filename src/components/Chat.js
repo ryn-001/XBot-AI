@@ -112,8 +112,13 @@ export default function Chat({ previousChat, setPreviousChat }) {
                     onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
                     placeholder="Type your message..."
                 />
+
                 <button id="send" onClick={() => handleSendMessage()}>
                     Send
+                </button>
+                
+                <button id="save" onClick={() => handleSendMessage()}>
+                    Save
                 </button>
             </div>
         </div>
