@@ -19,7 +19,7 @@ export default function Chat({
   useEffect(() => {
     setCurrentChat(JSON.parse(localStorage.getItem("chat")) || []);
     setPreviousChat(JSON.parse(localStorage.getItem("prev-chats")) || []);
-  }, [setCurrentChat,setPreviousChat]);
+  }, [setCurrentChat, setPreviousChat]);
 
   const handleSendMessage = (msg) => {
     if (!msg || !msg.trim()) return;
@@ -104,9 +104,10 @@ export default function Chat({
                 <div className='chat' key={j}>
                   <img src={c.sender === "user" ? user : pfp} alt={c.sender} />
                   <div className="msg">
-                    <span>{c.sender === "user" ? "You" : "Soul AI"}</span>
                     <span>{c.text}</span>
-                    <span className="time">{c.time}</span>
+                    <span className="time">
+                      {c.sender === "user" ? "You" : "Soul AI"} • {c.time}
+                    </span>
                   </div>
                 </div>
               ))}
