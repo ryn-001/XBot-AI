@@ -122,7 +122,7 @@ export default function Chat({
               <div className="msg">
                 <span>{ele.text}</span>
                 <span className="time">
-                  {c.sender === "user" ? "You" : "Soul AI"} • {ele.time}
+                  {ele.sender === "user" ? "You" : "Soul AI"} • {ele.time}
                 </span>
               </div>
             </div>
