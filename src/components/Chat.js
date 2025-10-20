@@ -73,7 +73,7 @@ export default function Chat({
       </div>
 
       {newChat ? (
-        <div className="welcome-heading">
+        <header className="welcome-heading">
           <div className="welcome">
             <h1>How can I Help You Today?</h1>
             <img src={pfp} alt="pfp" />
@@ -96,7 +96,7 @@ export default function Chat({
               </button>
             ))}
           </div>
-        </div>
+        </header>
       ) : (
         pastConversations ? (<div className="past-chats">
           <h3>Today's Chats</h3>
