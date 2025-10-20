@@ -107,7 +107,7 @@ export default function Chat({
                 <div className='chat' key={j}>
                   <img src={c.sender === "user" ? user : pfp} alt={c.sender} />
                   <div className="msg">
-                    <h4>{c.sender === "user" ? "You" : "Soul AI"}</h4>
+                    <span>{c.sender === "user" ? "You" : "Soul AI"}</span>
                     <span>{c.text}</span>
                     <span className="time">{c.time}</span>
                   </div>
