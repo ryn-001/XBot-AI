@@ -120,11 +120,11 @@ export default function Chat({
             <div className="chat" key={idx}>
               <img src={ele.sender === "user" ? user : pfp} alt={ele.sender} />
               <div className="msg">
-                    <span>{c.text}</span>
-                    <span className="time">
-                      {c.sender === "user" ? "You" : "Soul AI"} • {c.time}
-                    </span>
-                  </div>
+                <span>{ele.text}</span>
+                <span className="time">
+                  {c.sender === "user" ? "You" : "Soul AI"} • {ele.time}
+                </span>
+              </div>
             </div>
           ))}
         </div>)
