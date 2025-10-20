@@ -4,19 +4,31 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [previousChat, setPreviousChat] = useState(
-    JSON.parse(localStorage.getItem("chat")) || []
-  );
+  const [newChat,setNewChat] = useState(true);
+  const [pastConversations,setPastConversations] = useState(false);
+  const [previousChats,setPreviousChat] = useState([[]]);
+  const [currentChat,setCurrentChat] = useState([]);   
 
   useEffect(() => {
-    localStorage.setItem("chat", JSON.stringify(previousChat));
-    console.log(previousChat);
-  }, [previousChat]);
+    setNewChat(newChat);
+  }, [newChat])
+
+  useEffect(() => {
+    setPastConversations(pastConversations);
+  }, [pastConversations])
+
+  useEffect(() => {
+    setPreviousChat(previousChats);
+  }, [previousChats])
+
+  useEffect(() => {
+    setCurrentChat(currentChat);
+  }, [currentChat])
 
   return (
     <div className="App">
-      <Sidebar previousChat={previousChat} setPreviousChat={setPreviousChat}/>
-      <Chat previousChat={previousChat} setPreviousChat={setPreviousChat} />
+      <Sidebar newChat={newChat} setNewChat={setNewChat} pastConversations={pastConversations} setPastConversations={setPastConversations}/>
+      <Chat newChat={newChat} setNewChat={setNewChat} pastConversations={pastConversations} setPastConversations={setPastConversations} previousChat={previousChats} setPreviousChat={setPreviousChat} currentChat={currentChat} setCurrentChat={setCurrentChat}/>
     </div>
   );
 }

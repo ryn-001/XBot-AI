@@ -1,9 +1,13 @@
-import { useState, useEffect } from "react";
 import "./Sidebar.css";
 import profileImage from "../assets/images/profile-image.png";
 import addNewChat from "../assets/images/add-new-chat-img.png";
 
-export default function Sidebar({ pastConversations, handleLoadChat, handleNewChat }) {
+export default function Sidebar({ newChat, setNewChat, pastConversations, setPastConversations}) {
+
+    const handleNewChat = () => {
+        setNewChat(true);
+        setPastConversations(false);
+    }
 
     return (
         <div className="sidebar">
@@ -16,12 +20,12 @@ export default function Sidebar({ pastConversations, handleLoadChat, handleNewCh
                     <span style={{fontWeight: "bold"}}>New Chat</span>
 
                     <div className="add-chat-icon">
-                        <img src={addNewChat} alt="add-new-chat-img" style={{cursor:"pointer"}}/>
+                        <img src={addNewChat} alt="add-new-chat-img" onClick={handleNewChat} style={{cursor:"pointer"}}/>
                     </div>
                 </div>
 
                 <div className="button-wrapper">
-                    <button className="past-conversation-button">Past Converstions</button>
+                    <button className="past-conversation-button" onClick={() => setPastConversations(true)}>Past Converstions</button>
                 </div>
             </div>
         </div>

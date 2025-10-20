@@ -133,3 +133,16 @@
     padding: 0.2rem;
 }
 
+.prev-chat-wrapper{
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.prev-chat-wrapper{
+    background-color: #a896ce;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
