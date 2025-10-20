@@ -139,7 +139,7 @@ export default function Chat({
           onKeyDown={(e) => e.key === "Enter" && handleSendMessage(message)}
           placeholder="Message Bot AI..."
         />
-        <button id="send" onClick={() => handleSendMessage(message)}>
+        <button id="send" onClick={() => handleSendMessage(message)} type="submit">
           Send
         </button>
         <button id="save" onClick={() => handleSendMessage(message)}>
