@@ -137,7 +137,7 @@ export default function Chat({
           value={message}
           onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSendMessage(message)}
-          placeholder="Type your message..."
+          placeholder="Message Bot AI..."
         />
         <button id="send" onClick={() => handleSendMessage(message)}>
           Send
