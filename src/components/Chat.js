@@ -68,13 +68,10 @@ export default function Chat({
 
   return (
     <div className="chat-section">
-      <div className="bot-ai-heading">
-        <h3>Bot AI</h3>
-      </div>
-
       {newChat ? (
-        <header className="welcome-heading">
-          <div className="welcome">
+        <header className="welcome">
+          <h1 className="welcome-heading">Bot AI</h1>
+          <div className="welcome-child">
             <h1>How can I Help You Today?</h1>
             <img src={pfp} alt="pfp" />
           </div>
