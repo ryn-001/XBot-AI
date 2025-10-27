@@ -49,7 +49,7 @@ export default function Chat({
 
     const botMsg = {
       sender: "bot",
-      text: check ? check.response : "As an AI language model, I don't have the details",
+      text: check ? check.response : "Sorry, Did not understand your query!", // Fixed default message
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
@@ -75,6 +75,11 @@ export default function Chat({
     localStorage.setItem("prev-chats", JSON.stringify(updatedPrevious));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSendMessage(message);
+  };
+
   return (
     <div className="chat-section">
       {newChat ? (
@@ -94,6 +99,7 @@ export default function Chat({
             ].map((q, idx) => (
               <button
                 key={idx}
+                type="button" // Added type="button"
                 className={`question ${idx === 2 ? "question-3" : ""}`}
                 onClick={() => handleSendMessage(q)}
               >
@@ -124,21 +130,21 @@ export default function Chat({
         </div>
       )}
 
-      <div className="input-section">
+      {/* Wrap input in form for submission */}
+      <form onSubmit={handleSubmit} className="input-section">
         <input
           type="text"
           value={message}
           onChange={(e) => setCurrentMessage(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSendMessage(message)}
           placeholder="Message Bot AI..."
         />
-        <button id="send" onClick={() => handleSendMessage(message)} type="submit">
+        <button id="send" type="submit">
           Send
         </button>
         <Link to="/" onClick={onNewChat} id="save">
           New Chat
         </Link>
-      </div>
+      </form>
     </div>
   );
 }

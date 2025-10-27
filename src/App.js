@@ -17,14 +17,12 @@ function App() {
   };
 
   useEffect(() => {
-    // Load from localStorage on initial render
     const savedChat = localStorage.getItem("chat");
     const savedPrevChats = localStorage.getItem("prev-chats");
     
     if (savedChat) {
       const parsedChat = JSON.parse(savedChat);
       setCurrentChat(parsedChat);
-      // If there's a current chat, don't show new chat welcome
       if (parsedChat.length > 0) {
         setNewChat(false);
       }
@@ -55,7 +53,7 @@ function App() {
             } 
           />
           <Route 
-            path="/previouschats" 
+            path="/history" 
             element={
               <PreviousChat 
                 previousChats={previousChats}

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import "./PreviousChat.css";
+import "./PreviousChat.css"; // Make sure this matches your CSS file name
 import pfp from "../assets/images/chat-pfp.png";
 import user from "../assets/images/user.png";
 
-export default function PreviousChatsPage({ 
+export default function PreviousChat({ 
   previousChats, 
   setCurrentChat, 
   onNewChat 

@@ -20,16 +20,15 @@ export default function Sidebar({ onNewChat }) {
 
                     <div className="add-chat-icon">
                         <Link to="/" onClick={handleNewChat}>
-                            <button>
-                                <img src={addNewChat} alt="add-new-chat-img" style={{cursor:"pointer"}}/>
-                            </button>
+                            <img src={addNewChat} alt="add-new-chat-img" style={{cursor:"pointer"}}/>
                         </Link>
                     </div>
                 </div>
 
                 <div className="button-wrapper">
-                    <Link to="/previouschats" style={{ textDecoration: 'none', width: '90%', display: 'block' }}>
-                        <button className="past-conversation-button">
+                    {/* Changed to /history to match test */}
+                    <Link to="/history" style={{ textDecoration: 'none', width: '90%', display: 'block' }}>
+                        <button type="button" className="past-conversation-button"> {/* Added type="button" */}
                             Past Conversations
                         </button>
                     </Link>
