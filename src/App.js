@@ -7,30 +7,50 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 function App() {
   const [newChat, setNewChat] = useState(true);
-  const [previousChats, setPreviousChat] = useState([[]]);
+  const [previousChats, setPreviousChat] = useState([]);
   const [currentChat, setCurrentChat] = useState([]);   
 
   const handleNewChat = () => {
     setCurrentChat([]);
     setNewChat(true);
-    localStorage.setItem("chat", JSON.stringify([]));
+    localStorage.setItem("currentChat", JSON.stringify([]));
   };
 
   useEffect(() => {
-    const savedChat = localStorage.getItem("chat");
-    const savedPrevChats = localStorage.getItem("prev-chats");
+    // Load from localStorage on initial render
+    const savedCurrentChat = localStorage.getItem("currentChat");
+    const savedPreviousChats = localStorage.getItem("previousChats");
     
-    if (savedChat) {
-      const parsedChat = JSON.parse(savedChat);
+    console.log("Loading from localStorage:", { savedCurrentChat, savedPreviousChats });
+    
+    if (savedCurrentChat) {
+      const parsedChat = JSON.parse(savedCurrentChat);
       setCurrentChat(parsedChat);
       if (parsedChat.length > 0) {
         setNewChat(false);
       }
     }
-    if (savedPrevChats) {
-      setPreviousChat(JSON.parse(savedPrevChats));
+    
+    if (savedPreviousChats) {
+      const parsedPreviousChats = JSON.parse(savedPreviousChats);
+      setPreviousChat(parsedPreviousChats);
+      console.log("Loaded previous chats:", parsedPreviousChats);
     }
   }, []);
+
+  // Update localStorage whenever chats change
+  useEffect(() => {
+    if (currentChat.length > 0) {
+      localStorage.setItem("currentChat", JSON.stringify(currentChat));
+    }
+  }, [currentChat]);
+
+  useEffect(() => {
+    if (previousChats.length > 0) {
+      localStorage.setItem("previousChats", JSON.stringify(previousChats));
+      console.log("Saved previous chats:", previousChats);
+    }
+  }, [previousChats]);
 
   return (
     <Router>

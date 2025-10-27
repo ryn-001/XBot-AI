@@ -17,20 +17,17 @@ export default function Chat({
   const [message, setCurrentMessage] = useState("");
 
   useEffect(() => {
-    const savedChat = localStorage.getItem("chat");
-    const savedPrevChats = localStorage.getItem("prev-chats");
+    const savedCurrentChat = localStorage.getItem("currentChat");
+    const savedPreviousChats = localStorage.getItem("previousChats");
     
-    if (savedChat) {
-      const parsedChat = JSON.parse(savedChat);
+    if (savedCurrentChat) {
+      const parsedChat = JSON.parse(savedCurrentChat);
       setCurrentChat(parsedChat);
       if (parsedChat.length > 0) {
         setNewChat(false);
       }
     }
-    if (savedPrevChats) {
-      setPreviousChat(JSON.parse(savedPrevChats));
-    }
-  }, [setCurrentChat, setNewChat, setPreviousChat]);
+  }, [setCurrentChat, setNewChat]);
 
   const handleSendMessage = (msg) => {
     if (!msg || !msg.trim()) return;
@@ -49,35 +46,51 @@ export default function Chat({
 
     const botMsg = {
       sender: "bot",
-      text: check ? check.response : "Sorry, Did not understand your query!", // Fixed default message
+      text: check ? check.response : "Sorry, Did not understand your query!",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
     const updatedCurrentChat = [...currentChat, userMsg, botMsg];
     setCurrentChat(updatedCurrentChat);
-    setCurrentMessage("");
 
-    let updatedPrevious = [...previousChat];
+    // Update previous chats - create a new conversation if this is the first message
+    let updatedPreviousChats = [...previousChat];
     
-    if (updatedPrevious.length === 0 || currentChat.length === 0) {
-      updatedPrevious.push([userMsg, botMsg]);
+    if (currentChat.length === 0) {
+      // Starting a new conversation
+      updatedPreviousChats.push([userMsg, botMsg]);
     } else {
-      updatedPrevious[updatedPrevious.length - 1] = [
-        ...updatedPrevious[updatedPrevious.length - 1],
-        userMsg,
-        botMsg
-      ];
+      // Continuing existing conversation - update the last one
+      if (updatedPreviousChats.length > 0) {
+        updatedPreviousChats[updatedPreviousChats.length - 1] = [
+          ...updatedPreviousChats[updatedPreviousChats.length - 1],
+          userMsg,
+          botMsg
+        ];
+      } else {
+        // No previous chats yet, create first one
+        updatedPreviousChats.push([userMsg, botMsg]);
+      }
     }
 
-    setPreviousChat(updatedPrevious);
+    setPreviousChat(updatedPreviousChats);
+    setCurrentMessage("");
 
-    localStorage.setItem("chat", JSON.stringify(updatedCurrentChat));
-    localStorage.setItem("prev-chats", JSON.stringify(updatedPrevious));
+    // Save to localStorage
+    localStorage.setItem("currentChat", JSON.stringify(updatedCurrentChat));
+    localStorage.setItem("previousChats", JSON.stringify(updatedPreviousChats));
+    
+    console.log("Saved chat data:", {
+      currentChat: updatedCurrentChat,
+      previousChats: updatedPreviousChats
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSendMessage(message);
+    if (message.trim()) {
+      handleSendMessage(message);
+    }
   };
 
   return (
@@ -99,7 +112,7 @@ export default function Chat({
             ].map((q, idx) => (
               <button
                 key={idx}
-                type="button" // Added type="button"
+                type="button"
                 className={`question ${idx === 2 ? "question-3" : ""}`}
                 onClick={() => handleSendMessage(q)}
               >
@@ -130,7 +143,6 @@ export default function Chat({
         </div>
       )}
 
-      {/* Wrap input in form for submission */}
       <form onSubmit={handleSubmit} className="input-section">
         <input
           type="text"
