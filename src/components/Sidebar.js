@@ -1,12 +1,11 @@
 import "./Sidebar.css";
 import profileImage from "../assets/images/profile-image.png";
 import addNewChat from "../assets/images/add-new-chat-img.png";
+import { Link } from "react-router-dom";
 
-export default function Sidebar({ newChat, setNewChat, pastConversations, setPastConversations}) {
-
+export default function Sidebar({ onNewChat }) {
     const handleNewChat = () => {
-        setNewChat(true);
-        setPastConversations(false);
+        onNewChat();
     }
 
     return (
@@ -20,12 +19,20 @@ export default function Sidebar({ newChat, setNewChat, pastConversations, setPas
                     <span style={{fontWeight: "bold"}}>New Chat</span>
 
                     <div className="add-chat-icon">
-                        <img src={addNewChat} alt="add-new-chat-img" onClick={handleNewChat} style={{cursor:"pointer"}}/>
+                        <Link to="/" onClick={handleNewChat}>
+                            <button>
+                                <img src={addNewChat} alt="add-new-chat-img" style={{cursor:"pointer"}}/>
+                            </button>
+                        </Link>
                     </div>
                 </div>
 
                 <div className="button-wrapper">
-                    <button className="past-conversation-button" onClick={() => setPastConversations(true)}>Past Converstions</button>
+                    <Link to="/previouschats" style={{ textDecoration: 'none', width: '90%', display: 'block' }}>
+                        <button className="past-conversation-button">
+                            Past Conversations
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Chat.css";
 import pfp from "../assets/images/chat-pfp.png";
 import botData from "../sampleData.js";
@@ -7,19 +8,29 @@ import user from "../assets/images/user.png";
 export default function Chat({
   newChat,
   setNewChat,
-  pastConversations,
-  setPastConversations,
   previousChat,
   setPreviousChat,
   currentChat,
-  setCurrentChat
+  setCurrentChat,
+  onNewChat
 }) {
   const [message, setCurrentMessage] = useState("");
 
   useEffect(() => {
-    setCurrentChat(JSON.parse(localStorage.getItem("chat")) || []);
-    setPreviousChat(JSON.parse(localStorage.getItem("prev-chats")) || []);
-  }, [setCurrentChat, setPreviousChat]);
+    const savedChat = localStorage.getItem("chat");
+    const savedPrevChats = localStorage.getItem("prev-chats");
+    
+    if (savedChat) {
+      const parsedChat = JSON.parse(savedChat);
+      setCurrentChat(parsedChat);
+      if (parsedChat.length > 0) {
+        setNewChat(false);
+      }
+    }
+    if (savedPrevChats) {
+      setPreviousChat(JSON.parse(savedPrevChats));
+    }
+  }, [setCurrentChat, setNewChat, setPreviousChat]);
 
   const handleSendMessage = (msg) => {
     if (!msg || !msg.trim()) return;
@@ -29,7 +40,7 @@ export default function Chat({
     const userMsg = {
       sender: "user",
       text: msg.trim(),
-      time: new Date().toLocaleTimeString(),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
     const check = botData.find(
@@ -39,31 +50,29 @@ export default function Chat({
     const botMsg = {
       sender: "bot",
       text: check ? check.response : "As an AI language model, I don't have the details",
-      time: new Date().toLocaleTimeString(),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
     const updatedCurrentChat = [...currentChat, userMsg, botMsg];
     setCurrentChat(updatedCurrentChat);
     setCurrentMessage("");
 
-    const updatedPrevious = [...previousChat];
-    if (updatedPrevious.length > 0) {
+    let updatedPrevious = [...previousChat];
+    
+    if (updatedPrevious.length === 0 || currentChat.length === 0) {
+      updatedPrevious.push([userMsg, botMsg]);
+    } else {
       updatedPrevious[updatedPrevious.length - 1] = [
         ...updatedPrevious[updatedPrevious.length - 1],
         userMsg,
-        botMsg,
+        botMsg
       ];
-    } else {
-      updatedPrevious.push([userMsg, botMsg]);
     }
 
     setPreviousChat(updatedPrevious);
 
     localStorage.setItem("chat", JSON.stringify(updatedCurrentChat));
     localStorage.setItem("prev-chats", JSON.stringify(updatedPrevious));
-
-    console.log(previousChat);
-    console.log(currentChat);
   };
 
   return (
@@ -80,7 +89,7 @@ export default function Chat({
             {[
               "Hi, what is the weather",
               "Hi, what is my location",
-              "Hi, what is tempreature",
+              "Hi, what is temperature",
               "Hi, how are you",
             ].map((q, idx) => (
               <button
@@ -95,27 +104,12 @@ export default function Chat({
           </div>
         </header>
       ) : (
-        pastConversations ? (<div className="past-chats">
-          <h3>Today's Chats</h3>
-
-          {previousChat.map((ele, i) => (
-            <div className='prev-chat-wrapper' key={i}>
-              {ele.map((c, j) => (
-                <div className='chat' key={j}>
-                  <img src={c.sender === "user" ? user : pfp} alt={c.sender} />
-                  <div className="msg">
-                    <p>{c.text}</p>
-                    <span className="time">
-                      {c.sender === "user" ? "You" : "Soul AI"} • {c.time}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))}
-
-
-        </div>) : (<div className="current-chats">
+        <div className="current-chats">
+          <div className="chat-header">
+            <Link to="/" onClick={onNewChat} className="new-chat-button">
+              + New Chat
+            </Link>
+          </div>
           {currentChat.map((ele, idx) => (
             <div className="chat" key={idx}>
               <img src={ele.sender === "user" ? user : pfp} alt={ele.sender} />
@@ -127,7 +121,7 @@ export default function Chat({
               </div>
             </div>
           ))}
-        </div>)
+        </div>
       )}
 
       <div className="input-section">
@@ -141,9 +135,9 @@ export default function Chat({
         <button id="send" onClick={() => handleSendMessage(message)} type="submit">
           Send
         </button>
-        <button id="save" onClick={() => handleSendMessage(message)}>
-          Save
-        </button>
+        <Link to="/" onClick={onNewChat} id="save">
+          New Chat
+        </Link>
       </div>
     </div>
   );
